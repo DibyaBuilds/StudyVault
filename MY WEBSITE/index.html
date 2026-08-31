@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="UTF-8">
+<link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+<link rel="dns-prefetch" href="https://cdnjs.cloudflare.com">
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+<link rel="dns-prefetch" href="https://cdn.jsdelivr.net">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#050814">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk/500.css" as="style">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk/700.css" as="style">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/400.css" as="style">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/500.css" as="style">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/600.css" as="style">
+<link rel="preload" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/600.css" as="style">
+<title>StudyVault — All Tools. One Place. 100% Offline.</title>
+<meta name="description" content="All StudyVault tools in one place — PDF Editor, Photo Editor and file utilities. Everything runs 100% offline in your browser, no uploads, no account.">
+<meta property="og:title" content="StudyVault — All Tools">
+<meta property="og:description" content="PDF Editor, Photo Editor and file utilities — 100% offline, no uploads, no account.">
+<meta property="og:type" content="website">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop stop-color='%2338bdf8'/%3E%3Cstop offset='1' stop-color='%23a855f7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='44' font-family='Arial' font-size='34' font-weight='bold' text-anchor='middle' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/space-grotesk/700.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/400.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/500.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter/600.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/jetbrains-mono/600.css">
+<script defer src="https://cdn.jsdelivr.net/npm/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<meta name="color-scheme" content="dark">
+<link rel="stylesheet" href="assets/css/main.css">
+<script>
+  document.documentElement.classList.replace("no-js", "js");
+</script>
+<script defer src="assets/js/tools-data.js"></script>
+<script defer src="assets/js/search.js"></script>
+<script defer src="assets/js/main.js"></script>
+<script defer src="assets/js/editor.js"></script>
+<script defer src="assets/js/photo-editor.js"></script>
+<script defer src="assets/js/file-tools.js"></script>
+<style>
+  /* --- Redesign overrides: single Tools focus --- */
+  .hero--single{
+    padding: calc(var(--nav-h) + 28px) 0 36px;
+    position: relative;
+  }
+  .hero--single .hero-center{
+    max-width: 780px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  .hero--single h1{
+    font-size: clamp(2.2rem, 5vw, 3.75rem);
+    letter-spacing: -0.03em;
+    line-height: 1.02;
+  }
+  .hero--single .hero-sub{
+    margin: 18px auto 0;
+    max-width: 620px;
+    font-size: 1.08rem;
+    color: var(--muted);
+    text-align: center;
+  }
+  .hero--single .hero-actions{
+    justify-content: center;
+    margin-top: 26px;
+  }
+  .hero--single .hero-stats{
+    justify-content: center;
+    margin-top: 32px;
+  }
+  .hero--single .hero-meta{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 18px;
+  }
+  .hero-meta .meta-chip{
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 1px solid var(--stroke);
+    background: rgba(255,255,255,.03);
+    font-size: .82rem;
+    color: var(--muted);
+  }
+  .hero-meta .meta-chip b{ color: var(--text); font-weight: 700; }
+  /* Tools single section */
+  .tools-single{
+    padding-top: 18px;
+    padding-bottom: 72px;
+  }
+  .tools-single .section-head{
+    max-width: none;
+    text-align: center;
+    margin: 0 auto 28px;
+  }
+  .tools-single .section-head p{
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .tools-single .controls{
+    max-width: 720px;
+    margin: 0 auto 26px;
+  }
+  .tools-single .search-box{
+    max-width: none;
+    width: 100%;
+  }
+  .tools-single #toolGroups{
+    max-width: none;
+  }
+  .cat-badge{
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 10px;
+    border-radius: 999px;
+    font-size: .7rem;
+    font-weight: 700;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+    font-family: var(--font-m);
+    border: 1px solid var(--stroke);
+    background: rgba(255,255,255,.04);
+    color: var(--muted);
+    margin-bottom: 2px;
+  }
+  .cat-badge.pdf{ color:#fda4af; border-color: rgba(244,63,94,.25); background: rgba(244,63,94,.08); }
+  .cat-badge.image{ color:#fcd34d; border-color: rgba(251,191,36,.25); background: rgba(251,191,36,.08); }
+  .cat-badge.file{ color:#7dd3fc; border-color: rgba(56,189,248,.25); background: rgba(56,189,248,.08); }
+  .cat-badge.student{ color:#a5b4fc; border-color: rgba(99,102,241,.25); background: rgba(99,102,241,.08); }
+  .tool-card .cat-badge{ align-self: flex-start; }
+  /* keep single grid visual polish */
+  .tool-grid--single{
+    gap: 16px;
+  }
+  @media (max-width: 560px){
+    .hero--single{ padding-top: calc(var(--nav-h) + 18px); }
+  }
+</style>
+</head>
+<body>
+
+<a class="skip-link" href="#tools">Skip to tools</a>
+
+<div class="bg-fx" aria-hidden="true">
+  <div class="bg-grid"></div>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+</div>
+
+<!-- ================= NAV ================= -->
+<header class="site-header" id="siteHeader">
+  <div class="wrap nav">
+    <a class="brand" href="#top" aria-label="StudyVault home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg>
+      </span>
+      <span>
+        <span class="brand-name">StudyVault</span><br>
+        <span class="brand-sub">Offline Student Toolkit</span>
+      </span>
+    </a>
+    <nav aria-label="Main navigation">
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#top" data-nav="top" class="active">Home</a></li>
+        <li><a href="#tools" data-nav="tools">Tools</a></li>
+        <li><button data-privacy style="padding:9px 15px;border-radius:11px;font-size:.92rem;font-weight:500;color:var(--muted);">Privacy</button></li>
+      </ul>
+    </nav>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="#tools">Browse Tools</a>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false"><span></span><span></span><span></span></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ================= HERO — CLEAN CENTERED ================= -->
+<section class="hero hero--single" id="hero">
+  <div class="wrap">
+    <div class="hero-center reveal">
+      <span class="hero-badge"><i class="dot"></i> 100% in your browser · No uploads · No account</span>
+      <h1>
+        <span class="line">All Tools.</span>
+        <span class="line grad-text">One Place.</span>
+      </h1>
+      <p class="hero-sub">PDF Editor, Photo Editor and File Tools workspaces — plus student utilities — together in a single, searchable library. Pick a workspace and start. Everything runs offline on your device.</p>
+      <div class="hero-actions">
+        <a class="btn btn-primary btn-lg" href="#tools">Explore All Tools
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost btn-lg" href="#tools" onclick="document.getElementById('searchInput')?.focus(); return false;">Search tools — press /</a>
+      </div>
+      <div class="hero-meta">
+        <span class="meta-chip"><b>3</b> workspaces + utilities</span>
+        <span class="meta-chip">🔒 stays on device</span>
+        <span class="meta-chip">⚡ instant — no queue</span>
+        <span class="meta-chip">🎓 built for students</span>
+      </div>
+      <div class="hero-stats">
+        <div class="hstat"><b>3</b><span>Workspaces</span></div>
+        <div class="hstat"><b>0</b><span>Files uploaded</span></div>
+        <div class="hstat"><b>100%</b><span>Offline</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= SINGLE TOOLS LIBRARY ================= -->
+<section class="section tools-single" id="tools">
+  <div class="wrap">
+    <div class="section-head reveal">
+      <span class="kicker">✦ Tools</span>
+      <h2>Everything in one library</h2>
+      <p>Search and open any workspace instantly. <b>PDF Editor</b>, <b>Photo Editor</b> and the new <b>File Tools</b> workspace bundle all file utilities — plus student utilities. One search, one library.</p>
+    </div>
+
+    <div class="controls reveal">
+      <div class="controls-row" style="justify-content:center;">
+        <div class="search-box" style="flex:1;">
+          <svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+          <input type="search" id="searchInput" placeholder="Search tools…  try “pdf”, “photo”, “compress” or “gpa”" aria-label="Search tools" autocomplete="off">
+          <kbd>/</kbd>
+        </div>
+      </div>
+      <div class="recent-row" id="recentWrap" hidden>
+        <span class="rr-label">↻ Recently Used</span>
+        <span id="recentChips" style="display:contents"></span>
+        <button class="rr-clear" id="recentClear">Clear History</button>
+      </div>
+      <p class="tool-note" style="justify-content:center;text-align:center;margin-top:4px;">Tip: click any card to open — <b>PDF Editor</b> for PDFs, <b>Photo Editor</b> for images, <b>File Tools</b> for rename / size / duplicates / type / batch.</p>
+    </div>
+
+    <!-- Single flat grid: all workspaces rendered here by search.js -->
+    <div id="toolGroups" class="reveal"><!-- tools rendered by JS as one grid --></div>
+
+    <div class="no-results glass" id="noResults" hidden>
+      <div class="nr-ic">🔍</div>
+      <h3>No tools found</h3>
+      <p>Try a different keyword, like “pdf”, “photo”, “rename” or “gpa”.</p>
+      <button class="btn btn-ghost btn-sm" id="clearSearchBtn">Clear search</button>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ================= FOOTER — MINIMAL ================= -->
+<footer class="site-footer">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div>
+        <a class="brand" href="#top">
+          <span class="brand-mark" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1.7 2.7 3 6 3s6-1.3 6-3v-5"/></svg></span>
+          <span><span class="brand-name">StudyVault</span><br><span class="brand-sub">Offline Student Toolkit</span></span>
+        </a>
+        <p class="footer-tag">One library for every student file task. No account, no uploads — runs 100% in your browser.</p>
+      </div>
+      <div class="footer-links">
+        <div class="footer-col">
+          <h4>Navigate</h4>
+          <a href="#top">Home</a>
+          <a href="#tools">All Tools</a>
+          <button data-privacy>Privacy</button>
+        </div>
+        <div class="footer-col">
+          <h4>Direct</h4>
+          <a href="pdf-editor.html">PDF Editor →</a>
+          <a href="photo-editor.html">Photo Editor →</a>
+          <a href="file-tools.html">File Tools →</a>
+        </div>
+        <div class="footer-col">
+          <h4>Included</h4>
+          <span style="display:block;color:var(--muted);font-size:.88rem;padding:5px 0;">3 workspaces · PDF, Photo, File</span>
+          <span style="display:block;color:var(--muted);font-size:.88rem;padding:5px 0;">Student: GPA, Percentage, Organizer</span>
+        </div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© <span id="year"></span> StudyVault — runs 100% in your browser.</span>
+      <span>🔒 Your files never leave your device.</span>
+    </div>
+  </div>
+</footer>
+
+<div class="modal-root" id="modalRoot" hidden></div>
+<div class="toast-root" id="toastRoot" aria-live="polite"></div>
+<noscript>
+  <div class="noscript-message">StudyVault needs JavaScript to show its tools. Please enable JavaScript and reload.</div>
+</noscript>
+</body>
+</html>
